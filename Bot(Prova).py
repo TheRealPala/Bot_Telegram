@@ -60,7 +60,7 @@ def findWord(stri, up, cont):
         up.message.reply_text("\nLa parola non è ancora presente nell'archivio!\nIl nostro team la aggiungerà il prima possibile!")
         addNKW(stri)
     else:
-        up.message.reply_text("La parola è presente!\nParola: "+ str(v) +"\nDefinizione: " + str(defi))    
+        up.message.reply_text("Parola: "+ str(v) +"\nDefinizione: " + str(defi))    
 
 def initRead(f, sh):
     dir = load_workbook(f)
@@ -92,10 +92,14 @@ def defineFunction(up, cont):
         findWord(string, up, cont)
 
 def inputBot(up, cont):
-    stri = up.message.text
-    if(stri == "/definisci"):
+    buf = up.message.text
+    dele = "/definisci"
+    if(buf == dele):
         return "-1"
-    stri = stri.split()[1].strip()
+    la = buf.split(" ")
+    lb = dele.split(" ")
+    lc = [x for x in la if x not in lb]
+    stri = " ".join(lc)
     stri = stri.casefold()
     stri = stri.capitalize()
     up.message.reply_text("Parola da ricercare: " + stri)
@@ -129,7 +133,7 @@ def Amain():
 def start(up, cont):
     info = up.message.from_user
     nome = info['first_name']
-    up.message.reply_text("Ciao" + str(nome) +  ", per definire una parola digita: \n/definisci parola_da_definire")
+    up.message.reply_text("Ciao " + str(nome) +  ", per definire una parola digita: \n/definisci parola_da_definire")
 
 
 def main():
