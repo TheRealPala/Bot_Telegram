@@ -1,7 +1,10 @@
 from openpyxl import *
+import telegram
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 filename = "DataBase.xlsx" #nome del file exel da elaborare
 sheetT = "Database" #nome del foglio da elaborare
 sheetTNKW = "Nk" #nome del foglio per le parole non ancora definite
+TOKEN = "1524897969:AAFea-xo8G-xQvuoBhGUWXjQcdNAg7kQQpw"
 dir = load_workbook(filename)
 sheet = dir[sheetT]
 
@@ -14,14 +17,13 @@ sheet = dir[sheetT]
 #file["A4"] = str
 #dira.save(f)
 
-##########################
-#Da finire: non funziona la scrittura sul secondo foglio (Nk)
+
 def addNKW(s):
     try:
         #sh = dir.get_sheet_by_name(sheetTNKW)
         sh = dir[sheetTNKW]
     except:
-        print("Non posso lavorare sul file perchè è già aperto dal sistema operativo!")
+        #print("Non posso lavorare sul file perchè è già aperto dal sistema operativo!")
         exit
     r = 1
     c = 1
@@ -41,7 +43,7 @@ def addNKW(s):
 def readFile(v, rows, coloumns): 
     v[0] = sheet.cell(rows, coloumns).value
 
-def findWord(stri):
+def findWord(stri, up, cont):
     r = 2
     c = 1
     v = None
@@ -55,15 +57,16 @@ def findWord(stri):
             r += 1
             v = None
     if(v == None):
-        print("\nLa parola non è ancora presente nell'archivio!\nIl nostro team la aggiungerà il prima possibile!")
+        up.message.reply_text("\nLa parola non è ancora presente nell'archivio!\nIl nostro team la aggiungerà il prima possibile!")
         addNKW(stri)
     else:
-        print("La parola è presente!\nParola: "+ str(v) +"\nDefinizione: " + str(defi))    
+        up.message.reply_text("La parola è presente!\nParola: "+ str(v) +"\nDefinizione: " + str(defi))    
 
 def initRead(f, sh):
     dir = load_workbook(f)
     sheet = dir[sh]
 
+'''
 def inputStr():
     string = ""
     cmp = True
@@ -79,12 +82,63 @@ def inputStr():
         else:
             print("Risposta non corretta!\nRiprova")
     return string
-def defineFunction():
+'''
+def defineFunction(up, cont):
     initRead(filename, sheetT)
-    string = inputStr()
-    string = string.capitalize()
-    findWord(string)
+    string  = inputBot(up, cont)
+    if(len(string) == 0 or string == "-1"):
+        up.message.reply_text("Non hai inserito una parola da ricercare!\nSintassi: /definisci parola_da_definire")
+    else:
+        findWord(string, up, cont)
 
-if __name__ == "__main__":
-    defineFunction()
-   
+def inputBot(up, cont):
+    stri = up.message.text
+    if(stri == "/definisci"):
+        return "-1"
+    stri = stri.split()[1].strip()
+    stri = stri.casefold()
+    stri = stri.capitalize()
+    up.message.reply_text("Parola da ricercare: " + stri)
+    return stri
+
+'''
+def HelloBot(msg):
+    content_type, chat_type, chat_id = telepot.glance(msg)
+    name = msg["from"]["first_name"]
+    bot.sendMessage(chat_id, 'Ciao %s, \nQuesta è una prova del bot che definisce le parole!'%name)
+    bot.sendMessage(chat_id, 'definisci per iniziare\n/quit per andarsene'%name)
+    while True:
+        content_type, chat_type, chat_id = telepot.glance(msg)
+        txt = msg['text']
+        if(txt == "definisci"):
+            defineFunction()
+        elif txt == "/quit":
+            break
+        else:
+            bot.sendMessage(chat_id, 'Comando non disponibile!\n/start per iniziare\n/quit per andarsene'%name)
+        
+def Amain():
+    msg = ""
+    HelloBot(msg)
+    if msg  == "/quit":
+        bot.leaveChat()
+    else:
+        defineFunction()
+'''
+
+def start(up, cont):
+    info = up.message.from_user
+    nome = info['first_name']
+    up.message.reply_text("Ciao" + str(nome) +  ", per definire una parola digita: \n/definisci parola_da_definire")
+
+
+def main():
+    upd= Updater(TOKEN, use_context=True)
+    disp=upd.dispatcher
+    disp.add_handler(CommandHandler("start", start))
+    disp.add_handler(CommandHandler("definisci", defineFunction))
+    upd.start_polling()
+    upd.idle()
+
+if __name__=='__main__':
+   main()
