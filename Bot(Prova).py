@@ -87,13 +87,13 @@ def defineFunction(up, cont):
     initRead(filename, sheetT)
     string  = inputBot(up, cont)
     if(len(string) == 0 or string == "-1"):
-        up.message.reply_text("Non hai inserito una parola da ricercare!\nSintassi: /definisci parola_da_definire")
+        up.message.reply_text("Non hai inserito una parola da ricercare!\nSintassi: /def parola_da_definire")
     else:
         findWord(string, up, cont)
 
 def inputBot(up, cont):
     buf = up.message.text
-    dele = "/definisci"
+    dele = "/def"
     if(buf == dele):
         return "-1"
     la = buf.split(" ")
@@ -133,14 +133,14 @@ def Amain():
 def start(up, cont):
     info = up.message.from_user
     nome = info['first_name']
-    up.message.reply_text("Ciao " + str(nome) +  ", per definire una parola digita: \n/definisci parola_da_definire")
+    up.message.reply_text("Ciao " + str(nome) +  ", per definire una parola digita: \n/def parola_da_definire (ES: /def armadio)")
 
 
 def main():
     upd= Updater(TOKEN, use_context=True)
     disp=upd.dispatcher
     disp.add_handler(CommandHandler("start", start))
-    disp.add_handler(CommandHandler("definisci", defineFunction))
+    disp.add_handler(CommandHandler("def", defineFunction))
     upd.start_polling()
     upd.idle()
 
