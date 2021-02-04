@@ -8,16 +8,6 @@ TOKEN = "1524897969:AAFea-xo8G-xQvuoBhGUWXjQcdNAg7kQQpw"
 dir = load_workbook(filename)
 sheet = dir[sheetT]
 
-
-#Funzione di prova per scrivere un file xlsx
-#def makeFile(f, s, str):
-#dira = Workbook()
-#file = dir.active
-#file.title = s
-#file["A4"] = str
-#dira.save(f)
-
-
 def addNKW(s):
     try:
         #sh = dir.get_sheet_by_name(sheetTNKW)
@@ -66,23 +56,6 @@ def initRead(f, sh):
     dir = load_workbook(f)
     sheet = dir[sh]
 
-'''
-def inputStr():
-    string = ""
-    cmp = True
-    while cmp:
-        cmp = True
-        string = input("\nInserire parola da ricercare: ")
-        sn = input("Vuoi reinserire la parola da cercare? ")
-        if(sn == "si" or sn == "Sì" or sn == "Si" or sn == "SI" or sn == "Si\'"):
-            cmp = True
-            continue
-        elif(sn == "No" or sn == "NO" or sn == "no"):
-            cmp = False
-        else:
-            print("Risposta non corretta!\nRiprova")
-    return string
-'''
 def defineFunction(up, cont):
     initRead(filename, sheetT)
     string  = inputBot(up, cont)
@@ -104,31 +77,6 @@ def inputBot(up, cont):
     stri = stri.capitalize()
     up.message.reply_text("Parola da ricercare: " + stri)
     return stri
-
-'''
-def HelloBot(msg):
-    content_type, chat_type, chat_id = telepot.glance(msg)
-    name = msg["from"]["first_name"]
-    bot.sendMessage(chat_id, 'Ciao %s, \nQuesta è una prova del bot che definisce le parole!'%name)
-    bot.sendMessage(chat_id, 'definisci per iniziare\n/quit per andarsene'%name)
-    while True:
-        content_type, chat_type, chat_id = telepot.glance(msg)
-        txt = msg['text']
-        if(txt == "definisci"):
-            defineFunction()
-        elif txt == "/quit":
-            break
-        else:
-            bot.sendMessage(chat_id, 'Comando non disponibile!\n/start per iniziare\n/quit per andarsene'%name)
-        
-def Amain():
-    msg = ""
-    HelloBot(msg)
-    if msg  == "/quit":
-        bot.leaveChat()
-    else:
-        defineFunction()
-'''
 
 def start(up, cont):
     info = up.message.from_user
