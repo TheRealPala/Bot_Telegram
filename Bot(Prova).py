@@ -4,7 +4,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 filename = "DataBase.xlsx" #nome del file exel da elaborare
 sheetT = "Database" #nome del foglio da elaborare
 sheetTNKW = "Nk" #nome del foglio per le parole non ancora definite
-TOKEN = "1524897969:AAFea-xo8G-xQvuoBhGUWXjQcdNAg7kQQpw"
+TOKEN = "1657410885:AAHS56NZi2fypJ3Ia2VyDZvb7_JrhlqiV4I"
 dir = load_workbook(filename)
 sheet = dir[sheetT]
 
