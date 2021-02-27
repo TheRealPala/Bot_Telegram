@@ -1,5 +1,6 @@
 from openpyxl import *
 import telegram
+import json
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 filename = "DataBase.xlsx" #nome del file exel da elaborare
 sheetT = "Database" #nome del foglio da elaborare
@@ -18,15 +19,23 @@ def addNKW(s):
         exit
     r = 1
     c = 1
+    rs = 0
     cmp = True
     while(sh.cell(r, c).value != None):
         if(sh.cell(r, c).value == s): #controllo per vedere se la parola da inserire in lista è già presente, nel caso, non la aggiungo
             cmp = False
+            rs = r
             break
         r += 1
     if cmp:
         sh.cell(r, c, s) #aggiungo al file la parola non presente nel database
+        sh.cell(r, (c + 1), 1)
         dir.save(filename)# salvo il file
+    else:
+        volte = int(sh.cell(rs, (c + 1)).value)
+        volte += 1
+        sh.cell(rs, (c + 1), volte)
+        dir.save(filename)
         
 
 #def readFile(v, rows, coloumns): 
