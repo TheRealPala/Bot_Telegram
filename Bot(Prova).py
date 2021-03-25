@@ -96,7 +96,7 @@ def inputBot(up, cont):
 def start(up, cont):
     info = up.message.from_user
     nome = info['first_name']
-    up.message.reply_text("Ciao " + str(nome) +  ", per definire una parola digita: \n/def parola_da_definire (ES: /def armadio)")
+    up.message.reply_text("Ciao " + str(nome) +  ", per definire una parola digita: \n/def parola_da_definire (ES: /def virus)")
 
 
 def main():
