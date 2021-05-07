@@ -1,0 +1,13 @@
+status: 200
+server: Cowboy
+connection: keep-alive
+x-powered-by: Express
+access-control-allow-origin: *
+content-type: application/json; charset=utf-8
+content-length: 63
+etag: W/"3f-kSPUX7lkZDKff569Ok5oZQp65Ao"
+date: Fri, 07 May 2021 20:18:25 GMT
+via: 1.1 vegur
+content-location: https://tmmserver3.herokuapp.com/api?word=
+
+{"data":{"usable":[],"unusable":[""]},"status":"NotUsableWord"}
