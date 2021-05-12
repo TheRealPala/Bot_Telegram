@@ -150,7 +150,7 @@ class DB:
         stri += "Descrizioni: \n" + self.getDescription(word, lang)
         stri += "Esempi: \n" + self.getExample(word, lang)
         stri += "Sinonimi: \n" + self.getSinonimsIT(word)
-        stri += "Traduzione: \n" + self.getTranslationIT(word)
+        stri += "Traduzioni: \n" + self.getTranslationIT(word)
         return stri
 
     
@@ -166,7 +166,7 @@ class DB:
         return stri
     
  #Esempio di istanza della classe
-
+'''
 if __name__ == '__main__':
     db = DB()
     word = "Virus"
@@ -184,3 +184,4 @@ if __name__ == '__main__':
         print("La parola è in fase di inserimento!")
     else:
         print("Parola non trovata! Il nostro team la inserirà il prima possibile!")
+'''
