@@ -31,9 +31,7 @@ class DB:
     
     def getLanguage(self, word):
         js = self.getJson(word)
-        stri = ""
-        for w in js["data"]["usable"]:
-            stri += ( w["Word"]["Language"] + "\n")
+        stri = str(js["data"]["usable"][0]["Word"]["Language"])
         return stri
     
     def getExample(self, word, lang):
@@ -114,7 +112,7 @@ class DB:
                 if(count >= 0):
                     break
         if (count == 0):
-            stri = "La parola ricercata non ha traduzioni inserite nel nostro database!"
+           stri = "The word you are looking for has no translations in our database!"
         else:
             count = 1
             for i in js["data"]["usable"]:
@@ -133,7 +131,7 @@ class DB:
                 if(count >= 0):
                     break
         if (count == 0):
-            stri = "The word you are looking for has no translations in our database!"
+            stri = "La parola ricercata non ha traduzioni inserite nel nostro database!"
         else:
             count = 1
             for i in js["data"]["usable"]:
@@ -145,24 +143,24 @@ class DB:
     def makeMsgIT(self, word):
         stri = ""
         lang = "IT"
-        stri += "Parola: " + word + "\n"
-        stri += "Lingua: Italiano\n"
+        stri += "Parola: " + word + "\n\n"
+        stri += "Lingua: Italiano\n\n"
         stri += "Descrizioni: \n" + self.getDescription(word, lang)
         stri += "Esempi: \n" + self.getExample(word, lang)
         stri += "Sinonimi: \n" + self.getSinonimsIT(word)
-        stri += "Traduzioni: \n" + self.getTranslationIT(word)
+        stri += "Traduzioni (Inglese): \n" + self.getTranslationEN(word)
         return stri
 
     
     def makeMsgEN(self, word):
         stri = ""
         lang = "EN"
-        stri += "Word: " + word + "\n"
-        stri += "Language: English\n"
+        stri += "Word: " + word + "\n\n"
+        stri += "Language: English\n\n"
         stri += "Descriptions: \n" + self.getDescription(word, lang)
         stri += "Examples: \n" + self.getExample(word, lang)
         stri += "Synonyms: \n" + self.getSinonimsEN(word)
-        stri += "Translations: \n" + self.getTranslationEN(word)
+        stri += "Translations (Italian): \n" + self.getTranslationIT(word)
         return stri
     
  #Esempio di istanza della classe

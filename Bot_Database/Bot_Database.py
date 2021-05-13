@@ -9,12 +9,13 @@ TOKEN = "" #token di BotFather
 
 
 def findWord(word, up, cont):
-    db = DB()
+    db = DB() #Istanza della classe Db definita in dbHTTP.py
     tmp = db.isThereWord(word)
     if(tmp):
-        if(db.getLanguage == "IT"):
+        lang = db.getLanguage(word)
+        if(lang == "IT"):
              up.message.reply_text(db.makeMsgIT(word))
-        elif(db.getLanguage == "EN"):
+        elif(lang== "EN"):
             up.message.reply_text(db.makeMsgEN(word))
         else:
             up.message.reply_text(db.makeMsgIT(word))
@@ -53,8 +54,6 @@ def inputBot(up, cont):
     lb = dele.split(" ")
     lc = [x for x in la if x not in lb]#ciclo per gestire le parole con lo spazio ("San Valentino")
     stri = " ".join(lc)# Prende tutte le parole presenti nella lista, le unisce in una sola stringa e le separa con il carattere " " ('32[10]', '0x20')
-    #stri = stri.casefold()#fa diventare tutta la stringa minuscola
-    #stri = stri.capitalize()#fa diventare la prima lettera maiuscola
     stri = stri.upper()
     #up.message.reply_text("Parola da ricercare: " + stri)
     return stri
