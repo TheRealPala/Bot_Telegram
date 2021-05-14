@@ -46,8 +46,12 @@ class DB:
         if(count == 0):
             if(lang == "IT"):
                 stri = "Non ci sono esempi inseriti nel database!"
+                stri = stri.upper()
+                stri += "\n"
             elif(lang == "EN"):
                 stri = "There are no examples available in our database!"
+                stri = stri.upper()
+                stri += "\n"
         else:
             for w in js["data"]["usable"]:
                 for i in w["Examples"]:
@@ -75,6 +79,8 @@ class DB:
                     break
         if (count == 0):
             stri = "La parola ricercata non ha sinonimi inseriti nel nostro database!"
+            stri = stri.upper()
+            stri += "\n"
         else:
             count = 1
             for i in js["data"]["usable"]:
@@ -94,6 +100,8 @@ class DB:
                     break
         if (count == 0):
             stri = "The word you are looking for has no synonyms in our database!"
+            stri = stri.upper()
+            stri += "\n"
         else:
             count = 1
             for i in js["data"]["usable"]:
@@ -113,6 +121,8 @@ class DB:
                     break
         if (count == 0):
            stri = "The word you are looking for has no translations in our database!"
+           stri = stri.upper()
+           stri += "\n"
         else:
             count = 1
             for i in js["data"]["usable"]:
@@ -132,6 +142,8 @@ class DB:
                     break
         if (count == 0):
             stri = "La parola ricercata non ha traduzioni inserite nel nostro database!"
+            stri = stri.upper()
+            stri += "\n"
         else:
             count = 1
             for i in js["data"]["usable"]:

@@ -28,7 +28,8 @@ def findWord(word, up, cont):
 #Funzione che viene lanciata al comando /define parola 
 def defineFunction(up, cont):
     string  = inputBot(up, cont)  #ottiene la parola da ricercare
-    print("Stringa: " + str(string))
+    string = string.strip() #Elimina spazi bianchi da inizio e fine stringa!
+    print("Parola richiesta: " + str(string))
     if(len(string) == 0 or string == "-1"): #se la parola è vuota o si è verificato qualche errore nell'input stampa il seguente errore
         up.message.reply_text("Non hai inserito una parola da ricercare!\nSintassi: /def parola_da_definire")
     else: #altrimenti cerca la parola nel database 
@@ -41,6 +42,7 @@ def delStr(buf, dele):
     lb = dele.split(" ")
     lc = [x for x in la if x not in lb]
     stri = " ".join(lc)
+    stri = stri.strip() #Elimina spazi bianchi da inizio e fine stringa!
     return stri
 
 
@@ -62,7 +64,7 @@ def inputBot(up, cont):
 def start(up, cont):
     info = up.message.from_user
     nome = info['first_name']
-    up.message.reply_text("Ciao " + str(nome) +  ", per definire una parola digita: \n/def parola_da_definire (ES: /def virus)")
+    up.message.reply_text("Ciao " + str(nome) +  " !\nPer definire una parola digita: \n/def parola_da_definire (ES: /def virus)")
 
 def getToken():
     t = tok()
