@@ -2,6 +2,7 @@ import json
 import os
 
 class tok:
+    
     def getToken(self):
         json_conf=open('codice.json')#apre il file di configurazione 
         conf=json.load(json_conf)#parsa il json
