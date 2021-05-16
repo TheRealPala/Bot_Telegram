@@ -23,7 +23,7 @@ def findWord(word, up, cont):
     elif(tmp == 2):
         up.message.reply_text("La parola non è presente nel database ma è stata proposta per l'inserimento!")
     elif(tmp == 3):
-        up.message.reply_text("La parola non è presente nel database ma è stata cercata per ben " + number + "volte!")
+        up.message.reply_text("La parola non è presente nel database ma è stata cercata per ben " + str(number) + " volte!")
     else:
         up.message.reply_text("Parola non trovata :(\nIl nostro team la inserirà il prima possibile!")
 
