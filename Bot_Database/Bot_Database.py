@@ -10,8 +10,8 @@ TOKEN = "" #token di BotFather
 
 def findWord(word, up, cont):
     db = DB() #Istanza della classe Db definita in dbHTTP.py
-    tmp = db.isThereWord(word)
-    if(tmp):
+    tmp, number = db.isThereWord(word)
+    if(tmp == True):
         lang = db.getLanguage(word)
         if(lang == "IT"):
              up.message.reply_text(db.makeMsgIT(word))
@@ -21,9 +21,11 @@ def findWord(word, up, cont):
             up.message.reply_text(db.makeMsgIT(word))
             up.message.reply_text(db.makeMsgEN(word))
     elif(tmp == 2):
-        up.message.reply_text("La parola è in fase di inserimento!")
+        up.message.reply_text("La parola non è presente nel database ma è stata proposta per l'inserimento!")
+    elif(tmp == 3):
+        up.message.reply_text("La parola non è presente nel database ma è stata cercata per ben " + number + "volte!")
     else:
-        up.message.reply_text("Parola non trovata! Il nostro team la inserirà il prima possibile!")
+        up.message.reply_text("Parola non trovata :(\nIl nostro team la inserirà il prima possibile!")
 
 #Funzione che viene lanciata al comando /define parola 
 def defineFunction(up, cont):

@@ -63,9 +63,12 @@ class DB:
     def isThereWord(self, word):
         js = self.getJson(word)
         if(js["status"] == "FoundWord"):
-            return True
+            return True, 0
+        elif(js["status"] == "AddedWord"):
+            return 2, 0
         elif(js["status"] == "NotUsableWord"):
-            return 2
+            number = js["data"]["unusable"][0][1]
+            return 3, number
         return False
     
     def getSinonimsIT(self, word):
@@ -179,9 +182,9 @@ class DB:
 '''
 if __name__ == '__main__':
     db = DB()
-    word = "Virus"
-    tmp = db.isThereWord(word)
-    if(tmp):
+    word = "Prova"
+    tmp, number = db.isThereWord(word)
+    if(tmp == True):
         if(db.getLanguage == "IT"):
             print(db.makeMsgIT(word))
         elif(db.getLanguage == "EN"):
@@ -191,7 +194,9 @@ if __name__ == '__main__':
             print( "\n---------------\n")
             print(db.makeMsgEN(word))
     elif(tmp == 2):
-        print("La parola è in fase di inserimento!")
+       print("La parola non è presente nel database ma è stata proposta per l'inserimento!")
+    elif(tmp == 3):
+        print("La parola non è presente nel database ma è stata cercata per ben " + str(number) + " volte!")
     else:
         print("Parola non trovata! Il nostro team la inserirà il prima possibile!")
 '''
