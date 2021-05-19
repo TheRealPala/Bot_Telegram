@@ -1,13 +1,6 @@
 Descrizione
-Questa è una prova del bot da implementare.
 Comandi:
 /start -> Iniza a parlare con il bot!
 /def ->Fornisce la definizione di una parola
-(Sintassi: /def parola_da_definire
- Esempio: /def armadio)
-
-Comandi
-start-Iniza a parlare con il bot!
-def-Fornisce la definizione di una parola
 (Sintassi: /def parola_da_definire
  Esempio: /def armadio)
