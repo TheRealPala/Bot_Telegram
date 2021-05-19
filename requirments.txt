@@ -1,0 +1,3 @@
+requests
+httplib2
+python-telegram-bot
