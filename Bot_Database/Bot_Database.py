@@ -1,7 +1,6 @@
 import sys
 from os import *
 import json
-import telegram
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from dbHTTP import *
 from tok import *
