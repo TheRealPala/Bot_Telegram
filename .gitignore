@@ -2,7 +2,7 @@ codice.json
 descrizione_bot_ttm.txt
 ExampleRequest_IT_EN.txt
 .cache
-Bot_Database/__pycache__
-Bot_Database/prova.py
+__pycache__
+prova.py
 
 Bot-Excel_Funzionante/__pycache__
