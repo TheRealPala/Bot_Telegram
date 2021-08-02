@@ -18,8 +18,7 @@ class DB:
         js = json.load(io.BytesIO(fix_bytes_value))  
         return js
     
-    def getDescription(self, word, lang):
-        js = self.getJson(word)
+    def getDescription(self, js, lang):
         stri = ""
         count = 1
         for w in js["data"]["usable"]:
@@ -29,13 +28,11 @@ class DB:
                     count += 1
         return stri
     
-    def getLanguage(self, word):
-        js = self.getJson(word)
+    def getLanguage(self, js):
         stri = str(js["data"]["usable"][0]["Word"]["Language"])
         return stri
     
-    def getExample(self, word, lang):
-        js = self.getJson(word)
+    def getExample(self, js, lang):
         stri = ""
         count = 0
         for w in js["data"]["usable"]:
@@ -60,8 +57,7 @@ class DB:
                         count += 1
         return stri
 
-    def isThereWord(self, word):
-        js = self.getJson(word)
+    def isThereWord(self, js):
         if(js["status"] == "FoundWord"):
             return True, 0
         elif(js["status"] == "AddedWord"):
@@ -71,8 +67,7 @@ class DB:
             return 3, number
         return False
     
-    def getSinonimsIT(self, word):
-        js = self.getJson(word)
+    def getSinonimsIT(self, js):
         count = 0
         stri = ""
         for i in js["data"]["usable"]:
@@ -92,8 +87,7 @@ class DB:
                     count += 1
         return stri
 
-    def getSinonimsEN(self, word):
-        js = self.getJson(word)
+    def getSinonimsEN(self, js):
         count = 0
         stri = ""
         for i in js["data"]["usable"]:
@@ -113,8 +107,7 @@ class DB:
                     count += 1
         return stri
     
-    def getTranslationIT(self, word):
-        js = self.getJson(word)
+    def getTranslationIT(self, js):
         count = 0
         stri = ""
         for i in js["data"]["usable"]:
@@ -134,8 +127,7 @@ class DB:
                     count += 1
         return stri
    
-    def getTranslationEN(self, word):
-        js = self.getJson(word)
+    def getTranslationEN(self, js):
         count = 0
         stri = ""
         for i in js["data"]["usable"]:
@@ -155,48 +147,50 @@ class DB:
                     count += 1
         return stri
 
-    def makeMsgIT(self, word):
+    def makeMsgIT(self, word, js):
         stri = ""
         lang = "IT"
         stri += "Parola: " + word + "\n\n"
         stri += "Lingua: Italiano\n\n"
-        stri += "Descrizioni: \n" + self.getDescription(word, lang)
-        stri += "Esempi: \n" + self.getExample(word, lang)
-        stri += "Sinonimi: \n" + self.getSinonimsIT(word)
-        stri += "Traduzioni (Inglese): \n" + self.getTranslationEN(word)
+        stri += "Descrizioni: \n" + self.getDescription(js, lang)
+        stri += "Esempi: \n" + self.getExample(js, lang)
+        stri += "Sinonimi: \n" + self.getSinonimsIT(js)
+        stri += "Traduzioni (Inglese): \n" + self.getTranslationEN(js)
         return stri
 
     
-    def makeMsgEN(self, word):
+    def makeMsgEN(self, word, js):
         stri = ""
         lang = "EN"
         stri += "Word: " + word + "\n\n"
         stri += "Language: English\n\n"
-        stri += "Descriptions: \n" + self.getDescription(word, lang)
-        stri += "Examples: \n" + self.getExample(word, lang)
-        stri += "Synonyms: \n" + self.getSinonimsEN(word)
-        stri += "Translations (Italian): \n" + self.getTranslationIT(word)
+        stri += "Descriptions: \n" + self.getDescription(js, lang)
+        stri += "Examples: \n" + self.getExample(js, lang)
+        stri += "Synonyms: \n" + self.getSinonimsEN(js)
+        stri += "Translations (Italian): \n" + self.getTranslationIT(js)
         return stri
     
  #Esempio di istanza della classe
-'''
+
 if __name__ == '__main__':
     db = DB()
-    word = "Prova"
-    tmp, number = db.isThereWord(word)
+    word = "Virus"
+    js = db.getJson(word)
+    tmp, number = db.isThereWord(js)
     if(tmp == True):
-        if(db.getLanguage == "IT"):
-            print(db.makeMsgIT(word))
-        elif(db.getLanguage == "EN"):
-            print(db.makeMsgEN(word))
+        if(db.getLanguage(js) == "IT"):
+            print(db.makeMsgIT(word, js))
+        elif(db.getLanguage(js) == "EN"):
+            print(db.makeMsgEN(word, js))
         else:
-            print(db.makeMsgIT(word))
+            print(db.makeMsgIT(word, js))
             print( "\n---------------\n")
-            print(db.makeMsgEN(word))
+            print(db.makeMsgEN(word, js))
     elif(tmp == 2):
        print("La parola non è presente nel database ma è stata proposta per l'inserimento!")
     elif(tmp == 3):
         print("La parola non è presente nel database ma è stata cercata per ben " + str(number) + " volte!")
     else:
         print("Parola non trovata! Il nostro team la inserirà il prima possibile!")
-'''
+
+

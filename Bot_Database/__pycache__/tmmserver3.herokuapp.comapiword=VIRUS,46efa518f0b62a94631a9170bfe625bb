@@ -6,7 +6,7 @@ access-control-allow-origin: *
 content-type: application/json; charset=utf-8
 content-length: 0
 etag: W/"609-hYHpDi2obfZoHg44+8xMUSDSXs0"
-date: Wed, 19 May 2021 22:42:38 GMT
+date: Mon, 02 Aug 2021 22:19:04 GMT
 via: 1.1 vegur
 content-location: https://tmmserver3.herokuapp.com/api?word=VIRUS
 

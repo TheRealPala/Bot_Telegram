@@ -9,16 +9,17 @@ TOKEN = "" #token di BotFather
 
 def findWord(word, up, cont):
     db = DB() #Istanza della classe Db definita in dbHTTP.py
-    tmp, number = db.isThereWord(word)
+    js = db.getJson(word)
+    tmp, number = db.isThereWord(js)
     if(tmp == True):
-        lang = db.getLanguage(word)
+        lang = db.getLanguage(js)
         if(lang == "IT"):
-             up.message.reply_text(db.makeMsgIT(word))
+             up.message.reply_text(db.makeMsgIT(word, js))
         elif(lang== "EN"):
-            up.message.reply_text(db.makeMsgEN(word))
+            up.message.reply_text(db.makeMsgEN(word, js))
         else:
-            up.message.reply_text(db.makeMsgIT(word))
-            up.message.reply_text(db.makeMsgEN(word))
+            up.message.reply_text(db.makeMsgIT(word, js))
+            up.message.reply_text(db.makeMsgEN(word, js))
     elif(tmp == 2):
         up.message.reply_text("La parola non è presente nel database ma è stata proposta per l'inserimento!")
     elif(tmp == 3):
