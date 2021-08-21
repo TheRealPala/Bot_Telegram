@@ -7,7 +7,7 @@ from tok import *
 class DB:
     def __init__(self):
         t = tok()
-        self.url = t.getUrl()
+        self.url = t.getUrlEnv()
     
     def getJson(self, word):
         word = str(word.upper())
